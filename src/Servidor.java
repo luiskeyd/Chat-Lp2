@@ -1,26 +1,21 @@
 import java.net.*;
 import java.util.*;
-import java.io.*;
 
-public class Servidor{
-    
+public class Servidor {
     private static final int porta = 12345;
-    private static Set<PrintWriter> clientes = new HashSet<>();
-    private static Map<String, Sala> salas = new HashMap<>();
-    public static void main (String [] args){        
+    public static Map<String, Sala> salas = new HashMap<>();
+    public static Set<Usuario> usuarios = new HashSet<>();
 
-        try (ServerSocket servidor = new ServerSocket(porta)){
+    public static void main (String[] args) {
+        try (ServerSocket servidor = new ServerSocket(porta)) {
+            System.out.println("[Servidor] Iniciado na porta " + porta);
             while (true){
-                Socket cliente = servidor.accept(); 
-                System.out.println("Cliente " + cliente.getInetAddress().getHostAddress() + "conectado");
-                ClienteConectado novoCliente = new ClienteConectado(cliente, clientes);
-                Thread t1 = new Thread(novoCliente);
-                t1.start();
+                Socket cliente = servidor.accept();
+                Thread t = new Thread(new ClienteConectado(cliente));
+                t.start();
             }
+        } catch (Exception e) {
+            System.out.println("[Erro] " + e.getMessage());
         }
-        catch(Exception e){
-            System.out.println("Err " + e.getMessage());
-        }
-
-    } 
+    }
 }
