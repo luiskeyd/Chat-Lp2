@@ -5,7 +5,7 @@ public class Cliente {
     public static void main(String[] args) {
         Socket socket = null;
         try {
-            socket = new Socket("localhost", 12345);
+            socket = new Socket("26.19.8.24", 12345);
 
             BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter saida = new PrintWriter(socket.getOutputStream(), true);
@@ -37,6 +37,7 @@ public class Cliente {
 
         } catch (IOException e) {
             System.out.println("[Erro] Falha na conexão: " + e.getMessage());
+            e.printStackTrace(); // stack de erros pra descobrir quando não conectar
         } finally {
             try {
                 if (socket != null && !socket.isClosed()) {

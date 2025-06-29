@@ -33,6 +33,7 @@ public class ClienteConectado implements Runnable {
                         synchronized (Servidor.usuarios) {
                             Servidor.usuarios.add(usuario);
                         }
+                        System.out.println("[Servidor] " + nome + " conectou-se ao servidor");
                         saida.println("[Servidor] Logado como " + nome + (admin ? " (admin)" : ""));
                         break;
                     } else {
