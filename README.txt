@@ -8,6 +8,8 @@ que podem ser do tipo comum ou administradores.
 Cliente:
 
 
+Servidor:
+
 
 Comandos:
 Obs: Todos os comandos são feitos via terminal.
