@@ -94,7 +94,7 @@ public class ClienteConectado implements Runnable {
                     // Sair do servidor
                 } else if (comando.startsWith("/sairServidor")) {
                     saida.println("[Servidor]: Saindo...");
-                    System.out.println("[Servidor]: O usuario " + usuario.getNome() +"se desconectou");
+                    System.out.println("[Servidor]: O usuario " + usuario.getNome() +" se desconectou");
                     desconectar();
                     break;
 
@@ -128,18 +128,18 @@ public class ClienteConectado implements Runnable {
                     }
                     String nome = comando.split(" ", 2)[1]; // Armazena o nome da sala
                     if (Servidor.salas.containsKey(nome)) { // Se tentar criar uma sala que ja existe
-                        saida.println("[Erro] Sala já existe.");
+                        saida.println("[Erro]: Sala já existe.");
                     } else {
                         // Caso contrário, cria uma nova sala
                         Servidor.salas.put(nome, new Sala(nome)); //
-                        saida.println("[Servidor] Sala criada: " + nome);
+                        saida.println("[Servidor]: Sala criada: " + nome);
                         System.out.println("-> A sala " + nome + " foi criada pelo admin" + usuario.getNome());
                     }
 
                     // Encerrar uma sala
-                } else if (comando.startsWith("/encerrar ")) {
+                } else if (comando.startsWith("/encerrarSala ")) {
                     if (!usuario.isAdmin()) { // Se o usuário não é um admin
-                        saida.println("[Erro] Somente admins podem encerrar salas.");
+                        saida.println("[Erro]: Somente admins podem encerrar salas.");
                         continue;
                     }
                     String nome = comando.split(" ", 2)[1]; // Armazena o nome da sala
@@ -147,13 +147,13 @@ public class ClienteConectado implements Runnable {
                     if (sala != null) { // Se a sala existe
                         for (Usuario u : sala.getMembros()) {
                             // Remove todos os usuários e os informa
-                            u.getEscritor().println("[Servidor] Sala encerrada pelo admin.");
+                            u.getEscritor().println("[Servidor]: Sala encerrada pelo admin.");
                             u.setSalaAtual(null);
                         }
                         Servidor.salas.remove(nome); // Remove a sala do dicionário de salas
-                        saida.println("[Servidor] Sala encerrada.");
+                        saida.println("[Servidor]: Sala encerrada.");
                     } else {
-                        saida.println("[Erro] Sala não encontrada.");
+                        saida.println("[Erro]: Sala não encontrada.");
                     }
 
                     // Expulsar alguem da sala
@@ -164,7 +164,7 @@ public class ClienteConectado implements Runnable {
                     }
                     Sala sala = usuario.getSalaAtual(); // Aponta para a sala
                     if (sala == null) {
-                        saida.println("[Erro] Você não está em uma sala.");
+                        saida.println("[Erro]: Você não está em uma sala.");
                         continue;
                     }
                     String nome = comando.split(" ", 2)[1]; // Armazena o nome especificado
@@ -189,7 +189,7 @@ public class ClienteConectado implements Runnable {
                     saida.println("Somente Adms:\n");
                     saida.println("/criar nome_da_sala");
                     saida.println("/expulsar nome_do_cliente");
-                    saida.println("/encerrarSala\n");
+                    saida.println("/encerrarSala nome_da_sala\n");
                 }
                 else {
                     saida.println("[Erro]: Comando inválido.");
@@ -217,7 +217,7 @@ public class ClienteConectado implements Runnable {
             }
             socket.close(); // Encerra a conexão
         } catch (IOException e) {
-            System.out.println("[Erro ao desconectar] " + e.getMessage());
+            System.out.println("[Erro ao desconectar]: " + e.getMessage());
         }
     }
 }
