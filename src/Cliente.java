@@ -4,7 +4,7 @@ import java.net.*;
 // Cliente
 public class Cliente {
 
-    // main
+    // Main
     public static void main(String[] args) {
 
         Socket socket = null; // Inicializando a conexão
@@ -40,10 +40,13 @@ public class Cliente {
                     break;
                 }
             }
+        } 
 
-        } catch (IOException e) {
+        catch (IOException e) {
             System.out.println("[Erro]: Falha na conexão: " + e.getMessage());
-        } finally {
+        } 
+
+        finally {
             //  Encerra a conexão caso não tenha sido encerrada ainda
             try {
                 if (socket != null && !socket.isClosed()) {

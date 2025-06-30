@@ -23,7 +23,7 @@ public class Sala {
         return membros;
     }
 
-    // Retorna um usuário se ele estiver no conjunto, casoi contrário retorna null
+    // Retorna um usuário se ele estiver no conjunto, caso contrário retorna null
     public synchronized Usuario buscarUsuario(String nome) {
         for (Usuario usuario : membros) {
             if (usuario.getNome().equals(nome)) {
@@ -49,15 +49,5 @@ public class Sala {
         for (Usuario membro : membros) {
             membro.getEscritor().println(mensagem);
         }
-    }
-
-    // Verifica se um usuário específico esta na sala (vamo nem usar isso porvavelmente ó)
-    public synchronized boolean contemUsuario(String nome) {
-        for (Usuario usuario : membros) {
-            if (usuario.getNome().equals(nome)) {
-                return true; // Encontrou o usuário
-            }
-        }
-        return false; // Não encontrou
     }
 }

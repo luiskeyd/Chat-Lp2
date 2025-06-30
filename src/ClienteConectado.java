@@ -6,7 +6,7 @@ public class ClienteConectado implements Runnable {
 
     // Atributos
     private Socket socket; // Conexão do cliente
-    private BufferedReader entrada; // Ler a entrada do cliente
+    private BufferedReader entrada; // Lê a entrada do cliente
     private PrintWriter saida; // Envia mensagem ao cliente
     private Usuario usuario; // O cliente de fato, que é um objeto do tipo usuário
 
@@ -66,16 +66,18 @@ public class ClienteConectado implements Runnable {
                 if (comando.startsWith("/listarSalas")) {
                     if (Servidor.salas.isEmpty()) { // Verifica se a sala ta vazia
                         saida.println("[Servidor]: Nenhuma sala disponível."); // Se estiver
-                    } else {
+                    } 
+                    else {
                         // Exibe as salas
                         saida.println("[Servidor]: Salas:");
                         for (String nomeSala : Servidor.salas.keySet()) {
                             saida.println(" - " + nomeSala);
                         }
                     }
+                }
 
-                    //  Entrar em uma sala
-                } else if (comando.startsWith("/entrar ")) { //
+                //  Entrar em uma sala 
+                else if (comando.startsWith("/entrar ")) { //
                     String nomeSala = comando.split(" ", 2)[1]; // Armazena o nome da sala
                     Sala sala = Servidor.salas.get(nomeSala); // Ponteiro para a sala identificado pelo nome
                     if (sala == null) { // Se a sala não existe
@@ -90,28 +92,31 @@ public class ClienteConectado implements Runnable {
                         sala.addMembro(usuario);
                         saida.println("[Servidor]: Entrou na sala " + nomeSala);
                     }
+                } 
 
-                    // Sair do servidor
-                } else if (comando.startsWith("/sairServidor")) {
+                // Sair do servidor
+                else if (comando.startsWith("/sairServidor")) {
                     saida.println("[Servidor]: Saindo...");
                     System.out.println("[Servidor]: O usuario " + usuario.getNome() +" se desconectou");
                     desconectar();
                     break;
-
-                    // Sair da sala
-                } else if (comando.startsWith("/sairSala")) {
+                } 
+                
+                // Sair da sala
+                else if (comando.startsWith("/sairSala")) {
                     Sala sala = usuario.getSalaAtual();
-                    if (sala != null) { // Se o usuário esta em uma sala
+                    if (sala != null) { // Se o usuário está em uma sala
                         sala.removeMembro(usuario); // Remove o usuário da sala
                         usuario.setSalaAtual(null); // Atualiza o status de sala atual
                         saida.println("[Servidor]: Saiu da sala.");
                     } else {
                         saida.println("[Erro]: Não está em nenhuma sala.");
                     }
+                }
 
-                    // Enviar mensagem na sala
-                } else if (comando.startsWith("/msg ")) {
-                    // armazena a strig depois do primeiro espaço da instrução
+                // Enviar mensagem na sala
+                else if (comando.startsWith("/msg ")) {
+                    // Armazena a string depois do primeiro espaço da instrução
                     String msg = comando.split(" ", 2)[1];
                     Sala sala = usuario.getSalaAtual(); // Aponta para sala atual do usuário
                     if (sala != null) { // Se ele estiver em uma sala
@@ -119,15 +124,16 @@ public class ClienteConectado implements Runnable {
                     } else {
                         saida.println("[Erro]: Você não está em nenhuma sala.");
                     }
-
-                    // Criar uma sala
-                } else if (comando.startsWith("/criar ")) {
+                } 
+                
+                // Criar uma sala
+                else if (comando.startsWith("/criar ")) {
                     if (!usuario.isAdmin()) { // Se o usuário não é um admin
                         saida.println("[Erro]: Somente admins podem criar salas.");
                         continue;
                     }
                     String nome = comando.split(" ", 2)[1]; // Armazena o nome da sala
-                    if (Servidor.salas.containsKey(nome)) { // Se tentar criar uma sala que ja existe
+                    if (Servidor.salas.containsKey(nome)) { // Se tentar criar uma sala que já existe
                         saida.println("[Erro]: Sala já existe.");
                     } else {
                         // Caso contrário, cria uma nova sala
@@ -135,9 +141,10 @@ public class ClienteConectado implements Runnable {
                         saida.println("[Servidor]: Sala criada: " + nome);
                         System.out.println("-> A sala " + nome + " foi criada pelo admin" + usuario.getNome());
                     }
-
-                    // Encerrar uma sala
-                } else if (comando.startsWith("/encerrarSala ")) {
+                } 
+                
+                // Encerrar uma sala
+                else if (comando.startsWith("/encerrarSala ")) {
                     if (!usuario.isAdmin()) { // Se o usuário não é um admin
                         saida.println("[Erro]: Somente admins podem encerrar salas.");
                         continue;
@@ -156,9 +163,10 @@ public class ClienteConectado implements Runnable {
                     } else {
                         saida.println("[Erro]: Sala não encontrada.");
                     }
-
-                    // Expulsar alguem da sala
-                } else if (comando.startsWith("/expulsar ")) {
+                } 
+                
+                // Expulsar alguém da sala
+                else if (comando.startsWith("/expulsar ")) {
                     if (!usuario.isAdmin()) { // Se não for um admin
                         saida.println("[Erro] Somente admins podem expulsar.");
                         continue;
@@ -170,7 +178,7 @@ public class ClienteConectado implements Runnable {
                     }
                     String nome = comando.split(" ", 2)[1]; // Armazena o nome especificado
                     Usuario alvo = sala.buscarUsuario(nome); // Busca o nome especificado na sala
-                    if (alvo != null) { // Se o especificado esta na sala, remove
+                    if (alvo != null) { // Se o especificado está na sala, remove
                         sala.removeMembro(alvo);
                         alvo.setSalaAtual(null);
                         alvo.getEscritor().println("[Servidor]: Você foi expulso por um admin."); // Informa ao usuário a expulsão
@@ -178,9 +186,10 @@ public class ClienteConectado implements Runnable {
                     } else {
                         saida.println("[Erro]: Usuário não encontrado na sala.");
                     }
-
-                    // Exibe a lista de comandos
-                } else if (comando.startsWith("/help")){
+                } 
+                
+                // Exibe a lista de comandos
+                else if (comando.startsWith("/help")){
                     saida.println("-> Comandos comuns:\n");
                     saida.println("/listarSalas");
                     saida.println("/entrar nome_da_sala");
