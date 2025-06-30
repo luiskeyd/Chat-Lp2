@@ -150,6 +150,7 @@ public class ClienteConectado implements Runnable {
                             u.getEscritor().println("[Servidor]: Sala encerrada pelo admin.");
                             u.setSalaAtual(null);
                         }
+                        System.out.println("[Servidor]: A sala " + " foi encerrada pelo adm " + usuario.getNome());
                         Servidor.salas.remove(nome); // Remove a sala do dicionário de salas
                         saida.println("[Servidor]: Sala encerrada.");
                     } else {
@@ -186,7 +187,7 @@ public class ClienteConectado implements Runnable {
                     saida.println("/sairSala");
                     saida.println("/msg");
                     saida.println("/sairServidor\n");
-                    saida.println("Somente Adms:\n");
+                    saida.println("-> Somente Adms:\n");
                     saida.println("/criar nome_da_sala");
                     saida.println("/expulsar nome_do_cliente");
                     saida.println("/encerrarSala nome_da_sala\n");
