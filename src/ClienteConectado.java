@@ -139,7 +139,7 @@ public class ClienteConectado implements Runnable {
                         // Caso contrário, cria uma nova sala
                         Servidor.salas.put(nome, new Sala(nome)); //
                         saida.println("[Servidor]: Sala criada: " + nome);
-                        System.out.println("-> A sala " + nome + " foi criada pelo admin" + usuario.getNome());
+                        System.out.println("[Servidor]: A sala " + nome + " foi criada pelo admin " + usuario.getNome());
                     }
                 } 
                 
