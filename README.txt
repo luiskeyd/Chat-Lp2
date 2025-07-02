@@ -1,5 +1,11 @@
 Segunda atividade prática - Linguagem de programação II
 
+Integrantes:
+Edmar Miquéias Carvalho Vieira
+Glezier Montalvane de Farias Ferreira
+Luis Eduardo do Rosario Fonseca
+Willy Kauã Diniz Teixeira
+
 Funcionalidades:
 O projeto é desenvolvido em Java e utiliza sockets e threads 
 para criar um servidor virtual e gerenciar a entrada de usuários 
